@@ -33,6 +33,11 @@ public class GameService {
 
     public void finishGame(Long gameId, String winnerName) {
         Game game = gameRepository.findById(gameId).orElseThrow();
+        if (game.isFinished()) {
+            System.out.println("Game already finished."); 
+            return;
+        }
+        
         User winner = userRepository.findByUsername(winnerName);
         game.setWinner(winner);
         game.setFinished(true);
